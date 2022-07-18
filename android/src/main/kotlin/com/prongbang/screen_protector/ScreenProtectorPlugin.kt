@@ -1,5 +1,6 @@
 package com.prongbang.screen_protector
 
+import android.view.WindowManager
 import android.app.Activity
 import androidx.annotation.NonNull
 import com.prongbang.screenprotect.AndroidScreenProtector
@@ -10,6 +11,7 @@ import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
 import io.flutter.plugin.common.MethodChannel.MethodCallHandler
 import io.flutter.plugin.common.MethodChannel.Result
+
 
 /** ScreenProtectorPlugin */
 class ScreenProtectorPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
@@ -29,6 +31,7 @@ class ScreenProtectorPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
                 try {
                     activity?.window?.setFlags(
                         WindowManager.LayoutParams.FLAG_SECURE,
+                        WindowManager.LayoutParams.FLAG_SECURE,
                     )
                     result.success(true)
                 } catch (_: Exception) {
@@ -37,7 +40,9 @@ class ScreenProtectorPlugin : FlutterPlugin, MethodCallHandler, ActivityAware {
             }
             "protectDataLeakageOff", "preventScreenshotOff" -> {
                 try {
-                    activity?.window?.clearFlags(WindowManager.LayoutParams.FLAG_SECURE)
+                    activity?.window?.clearFlags(
+                        WindowManager.LayoutParams.FLAG_SECURE,
+                    )
                     result.success(true)
                 } catch (_: Exception) {
                     result.success(false)
